@@ -25,6 +25,8 @@ public class DbContexto : DbContext
 
     public DbSet<Administrador> Administradores { get; set; } = default!;
 
+    public DbSet<Veiculo> Veiculos { get; set; } = default!;
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
