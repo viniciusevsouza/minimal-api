@@ -7,4 +7,10 @@ public interface IAdministradorServico
 {
     Administrador? Login(LoginDTO loginDTO);
 
+    Administrador Incluir(Administrador administrador);
+
+    List<Administrador> Todos(int? pagina);
+
+    public Administrador? BuscaPorId(int id);
+
 }
