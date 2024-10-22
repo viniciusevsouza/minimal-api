@@ -1,1 +1,1 @@
-LAB DIO - Trabalhando com ASP.NET MInimals APIs 
+LAB DIO - Trabalhando com ASP.NET Minimals APIs 
