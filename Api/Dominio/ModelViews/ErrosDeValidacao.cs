@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.SignalR;
-
 namespace MinimalApi.Dominio.ModelViews;
 
 public struct ErrosDeValidacao

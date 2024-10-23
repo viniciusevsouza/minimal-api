@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using MinimalApi.Dominio.Entidades;
 using MinimalApi.Dominio.Interfaces;
 using MinimalApi.Infraestrutura.Db;

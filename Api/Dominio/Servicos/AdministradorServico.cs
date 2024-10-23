@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using MinimalApi.Dominio.Entidades;
 using MinimalApi.Dominio.Interfaces;
 using MinimalApi.DTOs;
