@@ -48,19 +48,40 @@ public class VeiculoRequestTest
     }
 
     [TestMethod]
-    public async Task TestarPostVeiculos()
+    public async Task TestarDeleteVeiculos()
+    {
+        // Arrange
+
+        var token = await GetToken();
+
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"/Veiculos/{1}");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        // Act
+
+        var response = await Setup.cliente.SendAsync(request);
+
+        // Assert
+
+        Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+
+
+    }
+
+    [TestMethod]
+    public async Task TestarPutVeiculos()
     {
         // Arrange
         var veiculo = new VeiculoDTO
         {
-            Nome = "teste x",
+            Nome = "teste01",
             Marca = "testando",
             Ano = 2005
         };
 
         var token = await GetToken();
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "/Veiculos")
+        var request = new HttpRequestMessage(HttpMethod.Put, $"/Veiculos/{1}")
         {
             Content = new StringContent(JsonSerializer.Serialize(veiculo), Encoding.UTF8, "Application/json")
         };
@@ -72,15 +93,16 @@ public class VeiculoRequestTest
 
         // Assert
 
-        Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
         var result = await response.Content.ReadAsStringAsync();
-        var administradorView = JsonSerializer.Deserialize<AdministradorModelView>(result, options);
+        var veiculoAtualizado = JsonSerializer.Deserialize<Veiculo>(result, options);
 
-        Assert.AreEqual("teste x", veiculo?.Nome ?? "");
-
-
+        Assert.AreEqual(veiculo.Nome, veiculoAtualizado?.Nome ?? "");
+        Assert.AreEqual(veiculo.Marca, veiculoAtualizado?.Marca ?? "");
+        Assert.AreEqual(veiculo.Ano, veiculoAtualizado?.Ano ?? 1980);
     }
+
 
 
     [TestMethod]
@@ -133,20 +155,24 @@ public class VeiculoRequestTest
 
     }
 
+
+
+
+
     [TestMethod]
-    public async Task TestarPutVeiculos()
+    public async Task TestarPostVeiculos()
     {
         // Arrange
         var veiculo = new VeiculoDTO
         {
-            Nome = "teste01",
+            Nome = "teste x",
             Marca = "testando",
             Ano = 2005
         };
 
         var token = await GetToken();
 
-        var request = new HttpRequestMessage(HttpMethod.Put, $"/Veiculos/{1}")
+        var request = new HttpRequestMessage(HttpMethod.Post, "/Veiculos")
         {
             Content = new StringContent(JsonSerializer.Serialize(veiculo), Encoding.UTF8, "Application/json")
         };
@@ -158,37 +184,14 @@ public class VeiculoRequestTest
 
         // Assert
 
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
 
         var result = await response.Content.ReadAsStringAsync();
-        var veiculoAtualizado = JsonSerializer.Deserialize<Veiculo>(result, options);
+        var administradorView = JsonSerializer.Deserialize<AdministradorModelView>(result, options);
 
-        Assert.AreEqual(veiculo.Nome, veiculoAtualizado?.Nome ?? "");
-        Assert.AreEqual(veiculo.Marca, veiculoAtualizado?.Marca ?? "");
-        Assert.AreEqual(veiculo.Ano, veiculoAtualizado?.Ano ?? 1980);
-    }
-
-
-    [TestMethod]
-    public async Task TestarDeleteVeiculos()
-    {
-        // Arrange
-
-        var token = await GetToken();
-
-        var request = new HttpRequestMessage(HttpMethod.Delete, $"/Veiculos/{1}");
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-        // Act
-
-        var response = await Setup.cliente.SendAsync(request);
-
-        // Assert
-
-        Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+        Assert.AreEqual("teste x", veiculo?.Nome ?? "");
 
 
     }
-
 
 }
